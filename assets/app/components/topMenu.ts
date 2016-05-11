@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 //import { Component } from '@angular/core';
 
 @Component({
-  selector: 'header-menu',
+  selector: 'top-menu',
   template: `
 		<div class="top_nav">
 
