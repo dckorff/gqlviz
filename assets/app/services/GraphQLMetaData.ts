@@ -7,52 +7,57 @@ export class GraphQLMetaData {
     gqlConnectionService: GQLConnectionService;
 
 	constructor(){
-        this.gqlConnectionService = new GQLConnectionService("");
+        this.gqlConnectionService = new GQLConnectionService();
 	}
 	
-	getMetaData() {
-		var query1 = {
-			query: `
-			query IntrospectionQuery { 
-				__schema {
-		    		types {
-		      			name
-		    		}
-		  		}
-		  	}`
-		};
+    getTypes() { 
+        var query = `
+        {
+            __schema {
+                types {
+                      name
+                }
+            }
+        }
+        `;
+        return this.getMetaData(query);
+    }
 
-		var query2 = {
-			query: `
-			 query IntrospectionQuery { 
-				__schema { 
-					queryType { name } 
-					mutationType { name } 
-					subscriptionType { name } 					
-					directives { 
-						name description args { ...InputValue } 
-						onOperation onFragment onField 
-					}
-				} 
-			} 
-			`
-		};
+    getTypeDetails(typeName: string) { 
+        var query = `
+        {
+            __type(name: "`+ typeName +`") {
+                name
+                fields {
+                    name
+                    type {
+                        name
+                        kind
+                    }
+                }
+            }
+        }
+        `;
+        return this.getMetaData(query);
+    }
+
+	getMetaData(queryString: string) {	
+
+        var query = {
+            query: queryString
+        };
 
 		return new Promise((resolve, reject)=>{
 
 			$.ajax({
                 url: this.gqlConnectionService.getGraphQlServerUrl() + "/graphql",
-				      method: "POST",
-				//crossDomain: true,
-				//data: JSON.stringify(query),
-				data: query1,
-				dataType: "json",
-				//contentType: 'application/json',
-				   success: function(response) {
+                method: "POST",
+				data: query,
+				dataType: "json",				
+				success: function(response) {
 				console.log("response");
-					console.log(response);
+					console.log(response.data);
 					resolve(response);
-					//callback(response, context);
 				},
 				error: function(xhr, status) {
 				    console.log("error");
@@ -63,10 +68,6 @@ export class GraphQLMetaData {
 
 		});
 
-
-		
-
-		
 	}
 	
 

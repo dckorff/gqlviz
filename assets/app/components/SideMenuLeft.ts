@@ -19,7 +19,7 @@ import { GraphQLMetaData } from '../services/GraphQLMetaData'
         <div class="menu_section">
           <h3>Schema</h3>
           <ul class="nav side-menu">
-            <li *ngFor="let item of schemaItems; let i = index"><a><i class="fa fa-folder"></i>{{item}}</a></li>
+            <li *ngFor="let itemName of schemaItems; let i = index" (click)="clickType(itemName)"><a><i class="fa fa-folder"></i>{{itemName}}</a></li>
           </ul>
         </div>
       </div>
@@ -38,11 +38,16 @@ export class SideMenuLeft {
   constructor() {
     this.schemaItems = [];
     this.gqlMetaData = new GraphQLMetaData();
-    this.gqlMetaData.getMetaData().then( (response: any) => { 
-      response.data.__schema.types.forEach( item => {
-        this.schemaItems.push(item.name) 
+    this.gqlMetaData.getTypes().then( (response: any) => {
+      response.__schema.types.forEach( item => {
+        this.schemaItems.push(item.name)
       });
     });
+  }
+
+  clickType(itemName) { 
+      console.log("click " + itemName);
+      this.gqlMetaData.getTypeDetails(itemName).then((response: any) => { console.log(response); } );
   }
 
 }
