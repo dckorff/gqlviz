@@ -10,7 +10,8 @@ paths = {};
 paths.typescript_in = './assets/app/**/*.ts';
 paths.typescript_out = './public/assets/build';
 
-paths.webpack_entry = paths.typescript_out + '/app.js';
+//paths.webpack_entry = paths.typescript_out + '/app.js';
+paths.webpack_entry = paths.typescript_out + '/main.js';
 paths.webpack_output = paths.typescript_out + '/app-bundle.js';
 
 

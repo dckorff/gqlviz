@@ -13,6 +13,7 @@
 
 	<link href="assets/vendor/gentelella/production/css/custom.css" rel="stylesheet">
 
+
 	<style>
 		.nav_menu {
 			height: 58px;
@@ -23,85 +24,34 @@
   <body class="nav-md">
 
   <div class="container body">
-      <div class="main_container">
+    <div class="main_container">
 
 
-        <!-- top navigation -->
-        <div class="top_nav">
-
-          <div class="nav_menu">
-            <nav class="" role="navigation">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-
-                <li role="presentation" class="dropdown">
-                  
-                </li>
-
-              </ul>
-            </nav>
-          </div>
-
-        </div>
-        <!-- /top navigation -->
+        <app></app>
 
 
 
-
-		<div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><span>GraphQL Visualizer</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Schema</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-folder"></i> Schema Item <!-- <span class="fa fa-chevron-down"></span> --></a></li>                  
-                </ul>
-              </div>              
-            <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <!--
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            -->
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-
-        </div>
-        </div>
+    </div>
 
 	<!-- <script src="assets/vendor/es6-module-loader/es6-module-loader-dev.js"></script> -->
 	<!-- <script>
 		//System.transpiler = 'typescript';
 	</script> -->
+  <!--
+  <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+  -->
+  <script src="assets/vendor/systemjs/system.js"></script>
+  <script src="assets/vendor/angular2/angular2-polyfills.js"></script>
+  <script src="assets/vendor/angular2/angular2.dev.js"></script>
+  <!--
+  <script src="node_modules/zone.js/dist/zone.js"></script>  
+  <script src="node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  -->
 	<script src="assets/vendor/jquery/jquery-1.12.3.min.js"></script>
 	<script src="assets/build/app-bundle.js"></script>
 	<script>
-		app.getMetaData();
+		//app.getMetaData();
 	</script>
   </body>
 </html>

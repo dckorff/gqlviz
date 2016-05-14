@@ -6,4 +6,4 @@ import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {App} from './components/app';
 //import {TopMenu} from "./components/topMenu"
 
-//bootstrap(TopMenu);
+bootstrap(App);
