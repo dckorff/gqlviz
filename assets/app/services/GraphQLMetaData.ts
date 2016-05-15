@@ -15,7 +15,8 @@ export class GraphQLMetaData {
         {
             __schema {
                 types {
-                      name
+                    name,
+                    description
                 }
             }
         }
@@ -29,10 +30,15 @@ export class GraphQLMetaData {
             __type(name: "`+ typeName +`") {
                 name
                 fields {
-                    name
+                    name,
+                    description,
                     type {
-                        name
-                        kind
+                        name,
+                        kind,
+                        ofType {
+                            name,
+                            kind
+                        }
                     }
                 }
             }
@@ -57,7 +63,7 @@ export class GraphQLMetaData {
 				success: function(response) {
 				console.log("response");
 					console.log(response.data);
-					resolve(response);
+					resolve(response.data);
 				},
 				error: function(xhr, status) {
 				    console.log("error");

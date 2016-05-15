@@ -39,9 +39,9 @@ export class SideMenuLeft {
     this.schemaItems = [];
     this.gqlMetaData = new GraphQLMetaData();
     this.gqlMetaData.getTypes().then( (response: any) => {
-      response.__schema.types.forEach( item => {
-        this.schemaItems.push(item.name)
-      });
+        response.__schema.types.forEach( item => {
+            this.schemaItems.push(item.name) 
+        });
     });
   }
 
