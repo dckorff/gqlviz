@@ -19,7 +19,12 @@ import { GraphQLMetaData } from '../services/GraphQLMetaData'
         <div class="menu_section">
           <h3>Schema</h3>
           <ul class="nav side-menu">
-            <li *ngFor="let itemName of schemaItems; let i = index" (click)="clickType(itemName)"><a><i class="fa fa-folder"></i>{{itemName}}</a></li>
+            <li *ngFor="let item of schemaItems; let i = index" (click)="clickType(item.name)" class="{{item.active}}">
+              <a><i class="fa fa-folder"></i>{{item.name}}</a> 
+              <ul class="nav child_menu" [style.display]="isActive(item)" >
+                <li *ngFor="let field of item.__type.fields"><a>{{field.name}}</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -31,23 +36,46 @@ export class SideMenuLeft {
 
   gqlMetaData: GraphQLMetaData
 
-  schemaItems: string[];
-
-  //me: any;
+  schemaItems: any;
 
   constructor() {
     this.schemaItems = [];
     this.gqlMetaData = new GraphQLMetaData();
     this.gqlMetaData.getTypes().then( (response: any) => {
-        response.__schema.types.forEach( item => {
-            this.schemaItems.push(item.name) 
+        response.__schema.types.forEach( item => {            
+            let thisItem : any = { name: item.name, active: '' };
+            thisItem.__type = { fields: [] };
+            this.schemaItems.push(thisItem);
         });
     });
   }
 
-  clickType(itemName) { 
-      console.log("click " + itemName);
-      this.gqlMetaData.getTypeDetails(itemName).then((response: any) => { console.log(response); } );
+  clickType(itemName) {
+    console.log("clickType");
+    let item = this.schemaItems.find(item => { return item.name == itemName; })
+
+    if (item.__type.fields.length == 0) {
+
+      this.gqlMetaData.getTypeDetails(itemName).then((response: any) => {          
+        item.active = "active";
+        item.__type = response.__type;          
+      });
+
+    }
+    else {
+      item.active = (item.active == "active") ? "" : "active";
+    }
+
+  }
+
+  isActive(item) : boolean{
+
+    if (item.active == "active"){      
+      return "block";
+    }
+    else {      
+      return "none";
+    }
   }
 
 }

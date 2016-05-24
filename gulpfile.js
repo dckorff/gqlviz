@@ -42,6 +42,9 @@ gulp.task("webpack", ['typescript'], function () {
     });
 });
 
+gulp.task("build-dev", ["webpack"], function() {
+    console.log("---webpack complete---");
+});
 
 gulp.task('default', function(){
     gulp.start('webpack');    
@@ -49,8 +52,10 @@ gulp.task('default', function(){
 
 gulp.task('watch', function () {
 
-    gulp.start('webpack');
+    //gulp.start('webpack');
+    gulp.start("build-dev");
+    
 
-	gulp.watch(paths.typescript_in, ['webpack']);
+	gulp.watch(paths.typescript_in, ['build-dev']);
 
 });

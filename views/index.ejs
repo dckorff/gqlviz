@@ -40,18 +40,68 @@
   <!--
   <script src="node_modules/es6-shim/es6-shim.min.js"></script>
   -->
+  
+
   <script src="assets/vendor/systemjs/system.js"></script>
   <script src="assets/vendor/angular2/angular2-polyfills.js"></script>
+  
   <script src="assets/vendor/angular2/angular2.dev.js"></script>
   <!--
   <script src="node_modules/zone.js/dist/zone.js"></script>  
   <script src="node_modules/reflect-metadata/Reflect.js"></script>
   <script src="node_modules/systemjs/dist/system.src.js"></script>
   -->
+  
 	<script src="assets/vendor/jquery/jquery-1.12.3.min.js"></script>
+	<!--
+    
+	-->
 	<script src="assets/build/app-bundle.js"></script>
-	<script>
-		//app.getMetaData();
+	
+    <script>
+    /*
+		System.config({
+            //defaultJSExtensions: true,
+
+            packages: {                
+                // meaning [baseURL]/local/package when no other rules are present
+                // path is normalized using map and paths configuration
+                '@angular': {
+                  main: 'index.js',
+                  format: 'cjs',
+                  //defaultExtension: 'js',
+                    map: {
+                  //   // use local jquery for all jquery requires in this package
+                  //   'jquery': './vendor/local-jquery.js',
+
+                  //   // import '/local/package/custom-import' should route to '/local/package/local/import/file.js'
+                  //   './custom-import': './local/import/file.js'
+                    //'./': 'index.js'
+                   },
+                  // meta: {
+                  //   // sets meta for modules within the package
+                  //   'vendor/*': {
+                  //     'format': 'global'
+                  //   }
+                  // }
+                }
+              }
+            // packages: {
+            //     '@angular' : {
+            //         main: 'index.js',
+            //         format: 'cjs',
+            //         defaultExtension: 'js'
+            //         // app: {
+            //         //     format: 'register'                        
+            //         // }
+            //     }
+            // }
+
+      });
+        System.import('@angular/platform-browser')
+      // System.import('assets/build/main')
+             .then(null, console.error.bind(console));
+     */
 	</script>
   </body>
 </html>
