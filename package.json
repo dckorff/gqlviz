@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",    
+    "start": "node bin/www",    
     "e2e": "tsc && concurrently \"http-server\" \"protractor protractor.config.js\"",    
     "postinstall": "typings install",    
     "tsc": "tsc",
