@@ -1,10 +1,18 @@
 // TODO: put @angular in a better place fix this path
 import { Component } from '@angular/core';
 import { GraphQLMetaData } from '../services/GraphQLMetaData'
+import { SchemaService } from '../services/SchemaService'
 //import { Component } from '@angular/core';
 
 @Component({
+  //providers: [SchemaService],
   selector: 'side-menu-left',
+  styles: [`
+    .main_menu_side {
+      height: calc(100vh - 55px);
+      overflow: auto;
+    }
+  `],
   template: `
   <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
@@ -16,13 +24,12 @@ import { GraphQLMetaData } from '../services/GraphQLMetaData'
 
       <!-- sidebar menu -->
       <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-        <div class="menu_section">
-          <h3>Schema</h3>
+        <div class="menu_section">     
           <ul class="nav side-menu">
-            <li *ngFor="let item of schemaItems; let i = index" (click)="clickType(item.name)" class="{{item.active}}">
-              <a><i class="fa fa-folder"></i>{{item.name}}</a> 
-              <ul class="nav child_menu" [style.display]="isActive(item)" >
-                <li *ngFor="let field of item.__type.fields"><a>{{field.name}}</a></li>
+            <li *ngFor="let item of schemaService.__schema.types; let iItem = index" class="{{selectedItems[iItem] ? 'active': ''}}">
+              <a (click)="clickType(iItem)" ><i class="fa fa-folder"></i>{{item.name}}</a>
+              <ul class="nav child_menu" [style.display]="selectedItems[iItem] ? 'block' : 'none'" >
+                <li *ngFor="let field of item.fields"><a>{{field.name}}</a></li>
               </ul>
             </li>
           </ul>
@@ -34,48 +41,17 @@ import { GraphQLMetaData } from '../services/GraphQLMetaData'
 })
 export class SideMenuLeft { 
 
-  gqlMetaData: GraphQLMetaData
+  // Track which types have been selected/expanded
+  selectedItems: Array<boolean>;
 
-  schemaItems: any;
-
-  constructor() {
-    this.schemaItems = [];
-    this.gqlMetaData = new GraphQLMetaData();
-    this.gqlMetaData.getTypes().then( (response: any) => {
-        response.__schema.types.forEach( item => {            
-            let thisItem : any = { name: item.name, active: '' };
-            thisItem.__type = { fields: [] };
-            this.schemaItems.push(thisItem);
-        });
-    });
+  constructor(private schemaService: SchemaService) {    
+    this.selectedItems = [];
   }
 
-  clickType(itemName) {
-    console.log("clickType");
-    let item = this.schemaItems.find(item => { return item.name == itemName; })
-
-    if (item.__type.fields.length == 0) {
-
-      this.gqlMetaData.getTypeDetails(itemName).then((response: any) => {          
-        item.active = "active";
-        item.__type = response.__type;          
-      });
-
-    }
-    else {
-      item.active = (item.active == "active") ? "" : "active";
-    }
-
-  }
-
-  isActive(item) : boolean{
-
-    if (item.active == "active"){      
-      return "block";
-    }
-    else {      
-      return "none";
-    }
+  clickType(iItem) {
+    // Toggle the item that was clicked
+    this.selectedItems[iItem] = !this.selectedItems[iItem];
+    this.schemaService.selectedType = this.schemaService.__schema.types[iItem];
   }
 
 }
